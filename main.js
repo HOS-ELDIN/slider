@@ -8,7 +8,7 @@ window.addEventListener("click", (e) => {
     sliderStyle = e.target.id;
   }
   if (sliderStyle == "fade") {
-    console.log(`fade true`);
+    // console.log(`fade true`);
     document.styleSheets[2].cssRules[3].style.removeProperty("transform");
     //give these to imges
     document.styleSheets[2].cssRules[3].style.setProperty(
@@ -85,14 +85,19 @@ function activeate(id) {
       imgs[i].classList.remove("active");
     }
   });
-  slideNumber.innerHTML = `slide #${id + 1}`;
+
+  if (sliderStyle == "fade") {
+    slideNumber.innerHTML = `Fade #${id + 1}`;
+  } else if (sliderStyle == "slide") {
+    slideNumber.innerHTML = `Slide #${id + 1}`;
+  }
 }
 
 next.addEventListener("click", () => {
   if (slide + 1 < imgs.length) {
     slide++;
     activeate(slide);
-    console.log(slide);
+    // console.log(slide);
     prev.classList.remove("disabled");
     if (slide + 1 == imgs.length && sliderStyle == "slide") {
       next.classList.add("disabled");
