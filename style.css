@@ -11,15 +11,9 @@ body {
   width: 800px;
   height: 500px;
   position: relative;
-
-  /* if i want fade comment display and overflow */
-  /* display: flex;
-  overflow: hidden; */
 }
 .slider-container img {
-  /* if i will use fade */
-  /* position: absolute;
-  opacity: 0; */
+
 
   flex-shrink: 0;
   display: inline;
@@ -73,7 +67,7 @@ body {
 .slider-controls .prev.disabled,
 .slider-controls .next.disabled {
   background-color: rgba(0, 150, 136, 0.5);
-  cursor: no-drop;
+  pointer-events: none;
 }
 .slider-controls .indicators {
   width: 60%;
@@ -107,7 +101,9 @@ body {
   font-size: 22px;
   text-transform: capitalize;
 }
-
+.options label{
+cursor: pointer;
+}
 .options label:first-of-type {
   margin-right: 30px;
 }
