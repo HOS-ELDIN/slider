@@ -1,3 +1,30 @@
+let sliderStyle = document.querySelector("input:checked + label").innerText;
+let sliderContainer = document.querySelector(".slider-container")
+
+window.addEventListener("click", (e) => {
+  if (e.target.name == "option") {
+    sliderStyle = e.target.id
+  }
+  if (sliderStyle == "fade") {
+    console.log(`fade true`);
+    document.styleSheets[2].cssRules[3].style.removeProperty("transform")
+    //give these to imges
+    document.styleSheets[2].cssRules[3].style.setProperty("position", "absolute");
+    sliderContainer.style.display = "block"
+    sliderContainer.style.overflow = "auto"
+    activeate(slide)
+  } else if (sliderStyle == "slide") {
+    //give these to container
+    sliderContainer.style.display = "flex"
+    sliderContainer.style.overflow = "hidden"
+    document.styleSheets[2].cssRules[3].style.removeProperty("position");
+    imgs.forEach((e) => {
+      e.style.opacity = 1
+    })
+    activeate(slide)
+  }
+})
+
 let slideNumber = document.getElementById("slide-number"),
   prev = document.getElementById("prev"),
   next = document.getElementById("next"),
@@ -15,22 +42,40 @@ imgs.forEach((e, i) => {
 let indicators = document.querySelectorAll(".indicators ul li");
 
 window.onload = () => {
+  if (sliderStyle == "fade") {
+    console.log(`fade true`);
+    //give these to imges
+    document.styleSheets[2].cssRules[3].style.setProperty("position", "absolute");
+  } else if (sliderStyle == "slide") {
+    //give these to container
+    sliderContainer.style.display = "flex"
+    sliderContainer.style.overflow = "hidden"
+  }
   activeate(slide);
 };
-
 function activeate(id) {
-  imgs.forEach((e, i) => {
-    if (i === id) {
-      e.style.opacity = 1;
-    } else {
-      e.style.opacity = 0;
-    }
-  });
+  if (sliderStyle == "fade") {
+    imgs.forEach((e, i) => {
+      if (i === id) {
+        e.style.opacity = 1;
+      } else {
+        e.style.opacity = 0;
+      }
+    });
+  } else if (sliderStyle == "slide") {
+    // if i want fade comment this
+    document.styleSheets[2].cssRules[3].style.setProperty(
+      "transform",
+      `translatex(-${slide * 800}px)`
+    );
+  }
   indicators.forEach((e, i) => {
     if (i === id) {
       e.className = "active";
+      imgs[i].classList.add("active");
     } else {
       e.classList.remove("active");
+      imgs[i].classList.remove("active");
     }
   });
   slideNumber.innerHTML = `slide #${id + 1}`;
@@ -41,8 +86,8 @@ next.addEventListener("click", () => {
     slide++;
     activeate(slide);
   } else {
-    slide = 0
-    activeate(slide)
+    slide = 0;
+    activeate(slide);
   }
 });
 prev.addEventListener("click", () => {
@@ -50,8 +95,8 @@ prev.addEventListener("click", () => {
     slide--;
     activeate(slide);
   } else {
-    slide = 4
-    activeate(slide)
+    slide = 4;
+    activeate(slide);
   }
 });
 
